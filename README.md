@@ -16,7 +16,7 @@ MAP = [   #ranges can overlap
        ]
 
 clip = core.lsmas.LibavSMASHSource('source.mp4')
-#selection if argument passed is (width, height, left,top)
+#if selection argument is passed: (width, height, left,top)
 clip = animate.run(clip, MAP, selection=(300,200,50,90))
 clip.set_output()
 ```
