@@ -142,9 +142,6 @@ def run(clip, MAP, selection=None, placeholder=None):
 
 
 if __name__ == '__main__':
-    import vapoursynth as vs;  from vapoursynth import core;  import sys
-
-    import loadDLL;  is_ok, dlls_log = loadDLL.vapoursynth_dlls(core, r'D:\My_programs\ENCODER_12\vapoursynth64\plugins')
 
     '''
     Usage:
