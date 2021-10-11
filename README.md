@@ -1,43 +1,71 @@
 animate.py is Python module for vapoursynth scripts that animates filters accros clip using MAP and selection.
 
-<h3>Basic usage:</h3>
-<pre><code>
-import vapoursynth as vs
+## Basic usage:
+```import vapoursynth as vs
 from vapoursynth import core
 import animate
 
 def blur(clip,*args):
     return clip.std.BoxBlur()
 
-MAP = [ #ranges can overlap   #filters can be chained: [filter1,filter2,filter3 ..]
+MAP = [   #ranges can overlap
              (60, 100),     [animate.Crossfade(None, blur)],
              (101,200),     [blur],
              (201,250),     [animate.Crossfade(blur, None)],             
        ]
 
-
-clip = core.lsmas.LibavSMASHSource(source.mp4)
+clip = core.lsmas.LibavSMASHSource('source.mp4')
 #selection if argument passed is (width, height, left,top)
 clip = animate.run(clip, MAP, selection=(300,200,50,90))
 clip.set_output()
-</code></pre>
+```
                        
-<h3>Dependencies:</h3>
+## Dependencies:
 vapoursynth<br>
-havsfunc<br>
+havsfunc
 
-<h3>Other examples:</h3>
-<pre><code>import vapoursynth as vs
+## Other examples:
+```import vapoursynth as vs
 from vapoursynth import core
 import animate
 
-MAP = [ #ranges can overlap   #filters can be chained: [filter1,filter2,filter3 ..]
+MAP = [
              ( 0, 65),      [animate.CrossfadeFromColor((16,128,128))],
              (300, 400),    [animate.CrossfadeToColor((16,128,128))],             
        ]
 
-clip = core.lsmas.LibavSMASHSource(video.mp4)
-
+clip = core.lsmas.LibavSMASHSource('source.mp4')
 clip = animate.run(clip, MAP)[:400]
-clip.set_output()</code></pre>
+clip.set_output()
+```
+frame ranges can overlap, filters can be chained, lambda could be used without defining a function:
+```
+def blur(clip,*args):
+    return clip.std.BoxBlur()
 
+def darken(clip, *args):
+    return clip.std.Expr(['x 50 -','',''])
+
+def brighten(clip, *args):
+    return clip.std.Expr(['x 50 +','',''])
+
+clip = core.lsmas.LibavSMASHSource(r'D:\video.mp4')
+
+MAP = [ 
+             (300, 400),    [blur, brighten],
+             (401, 600),    [darken],
+             (0, 1000),     [lambda clip, n, *args: clip.text.Text(f'frame: {n}', alignment=7)]
+       ]
+
+clip = animate.run(clip, MAP)
+```
+crossfades to and from a solid color:
+```
+MAP = [
+             (0,   100),   [animate.CrossfadeFromColor((16,128,128))],
+             (201, 300),   [animate.CrossfadeToColor((16,128,128))]
+       ]
+
+clip = animate.run(clip, MAP)[:300]
+clip.set_output()
+```
