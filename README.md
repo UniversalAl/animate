@@ -51,7 +51,7 @@ def darken(clip, *args):
 def brighten(clip, *args):
     return clip.std.Expr(['x 50 +','',''])
 
-clip = core.lsmas.LibavSMASHSource(r'D:\video.mp4')
+clip = core.lsmas.LibavSMASHSource(r'source.mp4')
 
 MAP = [ 
              (300, 400),    [blur, brighten],
