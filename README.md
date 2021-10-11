@@ -1,7 +1,8 @@
 animate.py is Python module for vapoursynth scripts that animates filters accros clip using MAP and selection.
 
 ## Basic usage:
-```import vapoursynth as vs
+```
+import vapoursynth as vs
 from vapoursynth import core
 import animate
 
@@ -25,7 +26,8 @@ vapoursynth<br>
 havsfunc
 
 ## Other examples:
-```import vapoursynth as vs
+```
+import vapoursynth as vs
 from vapoursynth import core
 import animate
 
