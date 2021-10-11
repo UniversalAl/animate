@@ -1,7 +1,8 @@
 animate.py is Python module for vapoursynth scripts that animates filters accros clip using MAP and selection.
 
 <h3>Basic usage:</h3>
-<pre><code>import vapoursynth as vs
+<pre><code>
+import vapoursynth as vs
 from vapoursynth import core
 import animate
 
@@ -18,7 +19,8 @@ MAP = [ #ranges can overlap   #filters can be chained: [filter1,filter2,filter3 
 clip = core.lsmas.LibavSMASHSource(source.mp4)
 #selection if argument passed is (width, height, left,top)
 clip = animate.run(clip, MAP, selection=(300,200,50,90))
-clip.set_output()</code></pre>
+clip.set_output()
+</code></pre>
                        
 <h3>Dependencies:</h3>
 vapoursynth<br>
