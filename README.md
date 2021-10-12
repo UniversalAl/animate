@@ -74,6 +74,7 @@ clip.set_output()
 animate filter arguments separatelly:
 ```
 import vapoursynth as vs
+from vapoursynth import core
 import animate
 import adjust
 clip = core.lsmas.LibavSMASHSource(r'source.mp4')
@@ -96,4 +97,41 @@ MAP = [
          (151, clip.num_frames-1), [tweak2]
       ]
 clip_out = animate.run(clip, MAP)
+```
+
+some other demonstration, no source input is needed for this scrip:
+```
+import vapoursynth as vs
+from vapoursynth import core
+import animate
+
+clip = core.std.BlankClip(color=(255,0,0), length=300)
+
+def data1(clip, n, lower, upper): return clip.text.Text(f'frame: {n}   interval to print: {lower} to {upper}',alignment=7)   
+def data2(clip, *args):           return clip.text.Text(f'filters can be chained', alignment=4)   
+def data3(clip, *args):           return clip.text.Text('Text that is fade in and out', alignment=1)
+
+def headline1(clip, *args):       return clip.text.Text('Our Headline')
+def headline2(clip, *args):       return clip.text.Text('... and other headline')
+def headline3(clip, *args):       return clip.text.Text('... third Headline')
+
+end = clip.num_frames-1
+ 
+MAP = [
+         (0,   60),     [CrossfadeFromColor( (0,0,0) ), Crossfade(None, headline1)],
+         (60, 100),     [headline1],
+         (101,150),     [Crossfade(headline1, headline2)],
+         (151,200),     [headline2],
+         (201,250),     [Crossfade(headline2,headline3)],
+         (251, end),    [headline3],
+         (end-29,end),  [CrossfadeToColor( (0,0,0) )],       
+         (0, end) ,     [
+             #example defining functions using lambda:
+             lambda clip, *args: clip.text.Text('this is always visible, because filter is positioned on the bottom in MAP', alignment=4),
+             lambda clip, n, *args: clip.text.Text(f'frame: {n}', alignment=1),
+                        ]
+       ]
+
+clip = run(clip, MAP)
+clip.set_output()
 ```
