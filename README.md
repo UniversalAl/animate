@@ -99,7 +99,7 @@ MAP = [
 clip_out = animate.run(clip, MAP)
 ```
 
-some other demonstration, no source input is needed for this script:
+no source input is needed for this demonstration:
 ```
 import vapoursynth as vs
 from vapoursynth import core
