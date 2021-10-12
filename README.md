@@ -1,4 +1,4 @@
-animate.py is Python module for vapoursynth scripts that animates filters accros clip using MAP and selection.
+animate.py is Python module for vapoursynth scripts that animates filters thru clip using MAP and selection.
 
 ## Basic usage:
 ```
