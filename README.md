@@ -1,4 +1,4 @@
-animate.py is a python module for vapoursynth scripts that maps filters across clip using MAP or defines crop selection for those mapped filters. Frame ranges defined in MAP could overlap, filters could be chained for a range, crossfades could be defined to and from a filter
+animate.py is a python module for vapoursynth scripts that maps filters across clip using MAP or defines crop selection for those mapped filters. Frame ranges defined in MAP could overlap, filters could be chained for a range, crossfades could be defined to and from a filter and also filter arguments could be animated separatelly if a crossfade is not appropriate
 
 ## Basic usage:
 ```
