@@ -71,3 +71,29 @@ MAP = [
 clip = animate.run(clip, MAP)[:300]
 clip.set_output()
 ```
+animate filter arguments separatelly:
+```
+    import vapoursynth as vs
+    import animate
+    import adjust
+    
+    clip = core.lsmas.LibavSMASHSource(r'source.mp4')
+    TWEAK1 =      dict(hue=0.0,  sat=1.3,    bright=8.0,   cont=1.1,    coring=True)
+    TWEAK2 =      dict(hue=0.0,  sat=1.4,    bright=15.0,  cont=1.3,    coring=True)
+    #declare what arguments you want to animate, int of float, but None to not animate an argument:
+    TWEAK_TYPES = dict(hue=None, sat=float,  bright=float, cont=float,  coring=None)
+    
+    def tweak1(clip,*args):
+        return adjust.Tweak(clip, **TWEAK1)
+        
+    def tweak2(clip,*args):
+        return adjust.Tweak(clip, **TWEAK2)
+        
+    MAP = [
+             (0, 100),                 [tweak1],
+             (101, 150),               [animate.Arguments(adjust.Tweak, TWEAK1, TWEAK2, TWEAK_TYPES)],
+             (151, clip.num_frames-1), [tweak2]
+          ]
+          
+    clip_out = animate.run(clip, MAP)  
+    ```
